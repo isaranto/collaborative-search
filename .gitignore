@@ -116,3 +116,4 @@ local
 *.ipynb
 Charts/
 .env
+data/
