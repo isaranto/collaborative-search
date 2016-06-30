@@ -1,0 +1,9 @@
+.my-container {
+	width:100%;
+}
+.odd {
+	background-color:#ededed;
+}
+.even {
+	background-color:#fdfdfd;
+}

@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>Collaborative Search</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../static/style.css">
+		<link rel="shortcut icon" href="img/favicon.ico">
+		<script src="../static/script.js"></script>
+</head>
+
+
+<body>
+<div class="container">
+	<div class="row">
+		{% block body %}
+		<section class="content">
+			<h1>Collaborative Search - NPL Collection</h1>
+			<div id="custom-search-input">
+                <div  class="input-group col-md-12">
+                <form action="search" method=post>
+                    <input type="text" name = "search-text" class="form-control input-lg" placeholder="Type your query...." />
+                    <span class="input-group-btn">                  
+                        <button type="submit" value=Search class="btn btn-info btn-lg" name ="submit" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8 my-container">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-container">
+							<table class="table table-filter">
+							 <thead id="results-header">
+							 	We've got a total of {{ total }} results for the query :{{query_text}}
+							 </thead>
+								<tbody>
+								{% set row = False %}
+								{% for res in results %}
+								{% if row %}
+									  <tr class="odd">
+									  {% set row = not row %}
+								{% else %}
+									    <tr class="even">
+									    {% set row = not row %}
+								{% endif %}										
+										<td class="doc-id">Document id : {{ res["_id"] }}, Score: {{ res["_score"] }}</td>
+										<td class="doc-text" >{{ res["_source"]["text"] }}</td>
+										<td> 
+										<form action="relevant" method=post>
+											<textarea style= "display:none" name=query_name rows=5 cols=10>{{query_text}} </textarea>
+											<button type="submit" name= "relevant" value ='{{ res["_id"] }}' class="btn btn-default btn-lg">
+											  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Its Relevant!
+											</button></br>		
+										</form>
+										<form action="note" method=post>									
+											<textarea name=note rows=5 cols=10></textarea>
+											<textarea style= "display:none" name=query_name rows=5 cols=10>{{query_text}} </textarea>
+											<button type="submit" name= "submit" value ='{{ res["_id"] }}' class="btn btn-default btn-lg">
+											  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Add a Note!
+											</button></br>	
+										</form>
+										</td>																				
+									</tr>
+									  {% else %}
+									    <li><em>Unbelievable.  No results!</em>
+									  {% endfor %}
+									  </ul>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="content-footer">
+					<p>
+						Information Retrieval 2016 <br>
+						Athens University of Economics and Business</a>
+					</p>
+				</div>
+			</div>
+		</section>
+		{% endblock %}
+	</div>
+</div>
+</body>
+</html>

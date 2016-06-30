@@ -4,14 +4,13 @@ from elasticsearch import Elasticsearch
 
 
 def create_json_with_index():
-    with open('data/queries-with-rel.json', 'r') as file:
+    with open('data/docs.json', 'r') as file:
         tweets = json.load(file)
         counter = 1
-        with open('data/testing_elastic_new_queries.json','w')as file2:
+        with open('data/testing_elastic_new.json','w')as file2:
             for tweet in tweets:
-                #file2.write('{"index":{"_index":"retrieval","_type":"doc",''"_id":"'+str(counter)+'"}}')
                 counter += 1
-                json.dump(tweet, file2)
+                json.dump(tweet, file2, sort_keys=True)
                 file2.write("\n")
 
 
@@ -48,12 +47,12 @@ if __name__ == '__main__':
     #uri_search = 'http://okeanos.gr:9200/tweets/tweet/_search'
     #uri_create = 'http://okeanos.gr:9200/tweets/tweet/'
     id = 1
-    #create_json_with_index()
-    """with open('data/testing_elastic_new.json', 'r') as fp:
+    """create_json_with_index()
+    with open('data/testing_elastic_new.json', 'r') as fp:
         for line in fp:
             upload_doc(es, id, line)
             id += 1"""
-    with open('data/testing_elastic_new_queries.json', 'r') as fp:
+    """with open('data/testing_elastic_new_queries.json', 'r') as fp:
         for line in fp:
             upload_query(es, id, line)
-            id += 1
+            id += 1"""

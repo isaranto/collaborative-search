@@ -106,7 +106,7 @@ tmtagsHistory
 .bundle
 
 test.py
-keys.py
+keys.p
 *.json
 bin/
 include/
@@ -117,3 +117,6 @@ local
 Charts/
 .env
 data/
+test/
+venv/
+img/
