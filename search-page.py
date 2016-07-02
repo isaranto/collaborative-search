@@ -3,6 +3,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
 from elasticsearch import Elasticsearch
 from contextlib import closing
 import requests, json
+import random
 
 
 app = Flask(__name__)
@@ -119,7 +120,7 @@ def custom_search(query_text, page):
             "query": {
                 "multi_match": {
                     "query": query_text,
-                    "fields": ["text^2", "relq^3", "note"]
+                    "fields": ["text^10", "relq^2", "note"]
                     }
                 }
         }, from_=start, size=20)

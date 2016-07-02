@@ -10,7 +10,7 @@
 
 
 <body>
-<div id="logo"><img src="http://aueb.gr/assets/img/logo.jpg"/>
+<div id="logo"><a href="/"> <img src="http://aueb.gr/assets/img/logo.jpg"/></a>
 		</div>
 <div class="container">
 	<div class="row">
@@ -27,18 +27,24 @@
                     </span>
                 </div>
             </div>
+            {% if query_text %}
             <div class="col-md-8 my-container">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="table-container">
 							<table class="table table-filter">
-							 <thead id="results-header"> Page #{{page}} of total  
-							 	We've got a total of {{ total }} results for the query :{{query_text}}
+							{% if query_text and total !=0%}
+							 <thead id="results-header" class="alert alert-success"> You searched for :{{query_text}}. {{ total }} results found!
+							 Showing Page #{{page}} of total
 							 </thead>
-								<tbody>
+							 {% elif query_text and total==0 %}
+							 <div class="alert alert-danger" role="alert">It's embarrasing! We found nothing for {{query_text}}. Maybe look for something else...</div>
+							 {% endif %}	
+								<tbody>{% if total!=0 %}
 								<th>Doc Id, Score</th>
 								<th>Text</th>
 								<th>Actions</th>
+								{% endif %}
 								{% set row = False %}
 								{% for res in results %}
 								{% if row %}
@@ -91,8 +97,6 @@
 											
 											{% endfor %}
 											</td></tr></ul>
-									  {% else %}
-									    <li><em>Unbelievable.  No results!</em>
 									  {% endfor %}
 									  </ul>
 								</tbody>
@@ -133,16 +137,23 @@
 				</div>
 				</form>
 				{% endif %}
-				<div class="content-footer">
-					<p>
-						Information Retrieval 2016 <br>
-						Athens University of Economics and Business</a>
-					</p>
-				</div>
+				{% else %}
+				<div class="empty-body"></div>
+				{% endif %}				
 			</div>
 		</section>
 		{% endblock %}
 	</div>
 </div>
+<div class="content-footer">	
+				<p id="team">
+						Team Members <br>
+						Iason Andriopoulos, Dimitris Pappas, Ilias Sarantopoulos</a>
+					</p>
+					<p id="info">
+						Information Retrieval 2016 <br>
+						Athens University of Economics and Business</a>
+					</p>
+				</div>
 </body>
 </html>

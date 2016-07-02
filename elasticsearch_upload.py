@@ -46,12 +46,12 @@ if __name__ == '__main__':
     es = Elasticsearch(hosts='http://okeanos.gr:9200/')
     #uri_search = 'http://okeanos.gr:9200/tweets/tweet/_search'
     #uri_create = 'http://okeanos.gr:9200/tweets/tweet/'
-    id = 1
-    """create_json_with_index()
+    id = 10942
+    """create_json_with_index()"""
     with open('data/testing_elastic_new.json', 'r') as fp:
         for line in fp:
             upload_doc(es, id, line)
-            id += 1"""
+            id += 1
     """with open('data/testing_elastic_new_queries.json', 'r') as fp:
         for line in fp:
             upload_query(es, id, line)
