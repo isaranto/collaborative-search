@@ -26,11 +26,17 @@ public class ResultsParser
 {
     public static void main(String[] args) throws Exception
     {
+        if (args.length != 2)
+        {
+            System.out.println("usage: .jar <queries> <output_results>");
+            return;
+        }
+
         try
         {
-            BufferedReader br = new BufferedReader(new FileReader("../query-text"));
+            BufferedReader br = new BufferedReader(new FileReader(args[0]));
 
-            PrintWriter out = new PrintWriter("results.test");
+            PrintWriter out = new PrintWriter(args[1]);
 
             String line;
             while ((line = br.readLine()) != null)
@@ -40,7 +46,7 @@ public class ResultsParser
 
                 String[] query = line.split(";");
 
-                StringEntity input = new StringEntity("{ \"from\" : 0 , \"size\" : 500, \"query\": { \"multi_match\": { \"query\": \"" + query[1] + "\", \"fields\": [\"text^2\", \"relq^3\", \"note\"] } } }");
+                StringEntity input = new StringEntity("{ \"from\" : 0 , \"size\" : 500, \"query\": { \"multi_match\": { \"query\": \"" + query[1] + "\", \"fields\": [\"text^10\", \"relq^2\", \"note\"] } } }");
 
                 input.setContentType("application/x-www-form-urlencoded");
                 httpget.setEntity(input);
@@ -85,6 +91,7 @@ public class ResultsParser
                 httpClient.close();
                 //System.out.println(responseBody);
             }
+            out.close();
         }
         finally
         {
