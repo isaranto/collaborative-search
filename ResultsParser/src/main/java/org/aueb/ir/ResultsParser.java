@@ -42,7 +42,7 @@ public class ResultsParser
             while ((line = br.readLine()) != null)
             {
                 CloseableHttpClient httpClient = HttpClients.createDefault();
-                HttpGetWithEntity httpget = new HttpGetWithEntity("http://83.212.119.231:9200/documents/doc/_search");
+                HttpGetWithEntity httpget = new HttpGetWithEntity("http://okeanos.gr:9200/documents/doc/_search");
 
                 String[] query = line.split(";");
 
